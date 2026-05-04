@@ -1,20 +1,31 @@
-from buzzer import Buzzer
-from mpu import MPU6050
+from machine import Pin, PWM
 from time import sleep
 
-class Drone:
-    def __init__(self):
-        self.buzzer = Buzzer()
-        self.mpu = MPU6050()
+ESC_PIN = 15
 
-    def startup(self):
-        self.buzzer.start()
-        self.buzzer.trigger("startup")
-        self.calibrate()
-    
-    def calibrate(self):
-        self.buzzer.trigger("calibration_start")
-        sleep(2)
-        self.mpu.calibrate()
-        self.buzzer.trigger("calibration_done")
-        sleep(2)
+MIN_US = 800
+MAX_US = 2000
+
+esc = PWM(Pin(ESC_PIN))
+esc.freq(50)
+
+def set_esc(us):
+    esc.duty_ns(us * 1000)
+    print("ESC:", us, "us")
+
+# Sicher starten
+set_esc(MIN_US)
+
+print("LiPo anschließen und auf beide Soundgruppen warten.")
+sleep(10)
+
+while True:
+    raw = input(f"Gaswert {MIN_US}-{MAX_US} eingeben. ENTER = STOP: ").strip()
+    value = 800
+    # Nur Enter gedrückt
+    if not raw == "" and (value >= MIN_US and value <= MAX_US):
+        try:
+            value = int(raw)
+        except ValueError:
+            pass
+    set_esc(value)
