@@ -2,7 +2,6 @@ from machine import Pin, PWM
 from time import sleep
 import _thread
 
-
 class Buzzer:
     def __init__(self, pin_num=16):
         self.buzzer = PWM(Pin(pin_num))
