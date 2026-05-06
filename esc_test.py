@@ -20,7 +20,7 @@ def set_escs(us, i=None):
     print("Signal ESCs:", us, "us")
 
 def stop_forever():
-    print("STOP: halte 800 us dauerhaft auf GP14 und GP15.")
+    print("STOP: halte 800 us dauerhaft.")
     print("Danach LiPo abziehen.")
     while True:
         for esc in escs:
