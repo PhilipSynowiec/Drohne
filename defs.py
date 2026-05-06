@@ -1,0 +1,4 @@
+PIN_FL = 12
+PIN_FR = 13
+PIN_BL = 14
+PIN_BR = 15

@@ -3,23 +3,27 @@ from time import sleep
 from math import atan2, sqrt, degrees
 import struct
 
+from state import State
+
+
 class MPU6050:
     def __init__(self):
         self.i2c = I2C(0, scl=Pin(5), sda=Pin(4), freq=400000)
         self.addr = 0x68
         # MPU-6050 aufwecken
-        self.i2c.writeto_mem(self.addr, 0x6B, b'\x00')
+        self.i2c.writeto_mem(self.addr, 0x6B, b"\x00")
         self.roll = 0.0
         self.pitch = 0.0
-        self.yaw = 0.0 # MPU-6050 hat keinen Magnetometer, Yaw kann nur durch Integration der Gyro-Daten geschätzt werden, nur Änderungen über kurze Zeiträume sind verlässlich, nicht der absolute Wert
+        self.yaw = 0.0  # MPU-6050 hat keinen Magnetometer, Yaw kann nur durch Integration der Gyro-Daten geschätzt werden, nur Änderungen über kurze Zeiträume sind verlässlich, nicht der absolute Wert
         self.time_waited = 0.0
 
     def read_word(self, reg):
         data = self.i2c.readfrom_mem(self.addr, reg, 2)
         return struct.unpack(">h", data)[0]
-    
+
     def calibrate(self):
         print("Kalibriere MPU-6050... Bitte stillhalten!")
+        sleep(1)
         ax_offset = 0
         ay_offset = 0
         az_offset = 0
@@ -45,9 +49,16 @@ class MPU6050:
         self.gz_offset = gz_offset / samples
 
         print("Kalibrierung abgeschlossen.")
-        print("Offsets: ax={:.2f} ay={:.2f} az={:.2f} gx={:.2f} gy={:.2f} gz={:.2f}".format(
-            self.ax_offset, self.ay_offset, self.az_offset, self.gx_offset, self.gy_offset, self.gz_offset))
-
+        print(
+            "Offsets: ax={:.2f} ay={:.2f} az={:.2f} gx={:.2f} gy={:.2f} gz={:.2f}".format(
+                self.ax_offset,
+                self.ay_offset,
+                self.az_offset,
+                self.gx_offset,
+                self.gy_offset,
+                self.gz_offset,
+            )
+        )
 
     def read(self, dt):
         ax = self.read_word(0x3B) - self.ax_offset
@@ -94,8 +105,16 @@ class MPU6050:
             print("ACC  g   X:{:.2f} Y:{:.2f} Z:{:.2f}".format(ax_g, ay_g, az_g))
             print("GYRO dps X:{:.2f} Y:{:.2f} Z:{:.2f}".format(gx_dps, gy_dps, gz_dps))
             print("TEMP C   {:.2f}".format(temp_c))
-            print("ROLL {:.2f} deg  PITCH {:.2f} deg  YAW {:.2f} deg".format(self.roll, self.pitch, self.yaw))
-            print("ACC Magnitude: {:.2f} g  GYRO Magnitude: {:.2f} dps".format(acc_magnitude, gyro_magnitude))
+            print(
+                "ROLL {:.2f} deg  PITCH {:.2f} deg  YAW {:.2f} deg".format(
+                    self.roll, self.pitch, self.yaw
+                )
+            )
+            print(
+                "ACC Magnitude: {:.2f} g  GYRO Magnitude: {:.2f} dps".format(
+                    acc_magnitude, gyro_magnitude
+                )
+            )
             print("-" * 30)
 
-        return self.roll, self.pitch, self.yaw, temp_c
+        return self.roll, self.pitch, self.yaw

@@ -2,6 +2,7 @@ from machine import Pin, PWM
 from time import sleep
 import _thread
 
+
 class Buzzer:
     def __init__(self, pin_num=16):
         self.buzzer = PWM(Pin(pin_num))
@@ -22,22 +23,22 @@ class Buzzer:
 
     def sound_startup(self):
         # kurz, aufsteigend: System gestartet
-        self.tone(523, 0.08)    # C5
-        self.tone(659, 0.08)    # E5
-        self.tone(784, 0.08)    # G5
-        self.tone(1047, 0.16)   # C6
+        self.tone(523, 0.08)  # C5
+        self.tone(659, 0.08)  # E5
+        self.tone(784, 0.08)  # G5
+        self.tone(1047, 0.16)  # C6
 
     def sound_calibration_start(self):
         # drei gleiche kurze Töne: stillhalten
-        self.tone(440, 0.09)    # A4
+        self.tone(440, 0.09)  # A4
         self.tone(440, 0.09)
         self.tone(440, 0.09)
 
     def sound_calibration_done(self):
         # bestätigender Abschluss
-        self.tone(659, 0.08)    # E5
-        self.tone(784, 0.08)    # G5
-        self.tone(988, 0.18)    # B5
+        self.tone(659, 0.08)  # E5
+        self.tone(784, 0.08)  # G5
+        self.tone(988, 0.18)  # B5
 
     def play_sound(self, sound_name):
         if sound_name == "startup":
