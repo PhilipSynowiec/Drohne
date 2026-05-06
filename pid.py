@@ -95,7 +95,7 @@ class PID:
         if not self.debug:
             raise RuntimeError("Debug logging is disabled")
 
-        fig, axs = plt.subplots(2, 1, figsize=(20, 16), sharex=True)
+        _, axs = plt.subplots(2, 1, figsize=(20, 16), sharex=True)
 
         axs[0].plot(self._log_time, self._log_error, label="Error")
         axs[0].plot(self._log_time, self._log_output, label="Output")
