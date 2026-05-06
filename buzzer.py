@@ -1,6 +1,7 @@
-from machine import Pin, PWM
-from time import sleep
 import _thread
+from time import sleep
+
+from machine import PWM, Pin
 
 
 class Buzzer:

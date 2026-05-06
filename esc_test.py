@@ -1,5 +1,6 @@
-from machine import Pin, PWM
 from time import sleep
+
+from machine import PWM, Pin
 
 ESC_PINS = [12, 13, 14, 15]
 
@@ -10,6 +11,7 @@ escs = [PWM(Pin(pin)) for pin in ESC_PINS]
 for esc in escs:
     esc.freq(50)
 
+
 def set_escs(us, i=None):
     if i is None:
         for esc in escs:
@@ -19,6 +21,7 @@ def set_escs(us, i=None):
 
     print("Signal ESCs:", us, "us")
 
+
 def stop_forever():
     print("STOP: halte 800 us dauerhaft.")
     print("Danach LiPo abziehen.")
@@ -26,6 +29,7 @@ def stop_forever():
         for esc in escs:
             esc.duty_ns(MIN_US * 1000)
         sleep(0.02)
+
 
 # Sicheres Startsignal
 set_escs(MIN_US)

@@ -1,9 +1,8 @@
-from machine import Pin, I2C
-from time import sleep
-from math import atan2, sqrt, degrees
 import struct
+from math import atan2, degrees, sqrt
+from time import sleep
 
-from state import State
+from machine import I2C, Pin
 
 
 class MPU6050:

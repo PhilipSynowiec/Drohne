@@ -1,7 +1,8 @@
+from time import sleep, ticks_diff, ticks_us
+
 from buzzer import Buzzer
 from motors import MotorController
 from mpu import MPU6050
-from time import sleep, ticks_us, ticks_diff
 from state import State
 
 

@@ -1,7 +1,7 @@
-from machine import Pin, PWM
-from pid import PID
+from machine import PWM, Pin
 
 from defs import PIN_BL, PIN_BR, PIN_FL, PIN_FR
+from pid import PID
 
 
 class Motor:
