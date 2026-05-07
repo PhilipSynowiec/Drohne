@@ -1,7 +1,7 @@
 """NRF24L01 driver for MicroPython"""
 
-from micropython import const
 import utime
+from micropython import const
 
 # nRF24L01+ registers
 CONFIG = const(0x00)
