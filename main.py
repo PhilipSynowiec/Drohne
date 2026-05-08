@@ -7,31 +7,40 @@ from nrf24l01 import NRF24L01
 led = Pin("LED", Pin.OUT)
 
 spi = SPI(
-    0, baudrate=1_000_000, polarity=0, phase=0, sck=Pin(2), mosi=Pin(3), miso=Pin(0)
+    1, baudrate=1_000_000, polarity=0, phase=0, sck=Pin(14), mosi=Pin(11), miso=Pin(12)
 )
 
-csn = Pin(1, Pin.OUT, value=1)
-ce = Pin(6, Pin.OUT, value=0)
-
-nrf = NRF24L01(spi, csn, ce, channel=46, payload_size=1)
+csn = Pin(13, Pin.OUT, value=1)
+ce = Pin(15, Pin.OUT, value=0)
 
 address = b"node1"
 
-nrf.open_rx_pipe(1, address)
-nrf.start_listening()
+nrf = NRF24L01(spi, csn, ce, channel=100, payload_size=1)
+nrf.set_power_speed(0x00, 0x20)  # low power, 250 kbps
 
-print("Receiver ready")
+nrf.open_tx_pipe(address)
+nrf.stop_listening()
+
+print("Sender ready")
+
+state = 0
 
 while True:
-    if nrf.any():
-        data = nrf.recv()
-        value = data[0]
+    state = 1 - state
 
-        print("received:", value)
+    try:
+        nrf.send(bytes([state]))
+        print("sent:", state)
+        led.value(state)
 
-        if value == 1:
+    except OSError as e:
+        print("send failed:", e)
+
+        # Fehler-Blink
+        for _ in range(2):
             led.value(1)
-        elif value == 0:
+            sleep(0.05)
             led.value(0)
+            sleep(0.05)
 
-    sleep(0.01)
+    sleep(1)
