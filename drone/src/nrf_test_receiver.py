@@ -2,7 +2,7 @@ from time import sleep
 
 from machine import SPI, Pin
 
-from nrf24l01 import NRF24L01
+from drone.src.nrf24l01 import NRF24L01
 
 led = Pin("LED", Pin.OUT)
 

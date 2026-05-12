@@ -1,8 +1,7 @@
 from time import sleep
 
 from machine import SPI, Pin
-
-from nrf24l01 import NRF24L01
+from src.nrf24l01 import NRF24L01
 
 led = Pin("LED", Pin.OUT)
 
@@ -15,7 +14,7 @@ ce = Pin(15, Pin.OUT, value=0)
 
 address = b"node1"
 
-nrf = NRF24L01(spi, csn, ce, channel=100, payload_size=1)
+nrf = NRF24L01(spi, csn, ce, channel=100, payload_size=16)
 nrf.set_power_speed(0x00, 0x20)  # low power, 250 kbps
 
 nrf.open_tx_pipe(address)

@@ -1,9 +1,9 @@
 from time import sleep, ticks_diff, ticks_us
 
-from buzzer import Buzzer
-from motors import MotorController
-from mpu import MPU6050
-from state import State
+from drone.src.buzzer import Buzzer
+from drone.src.motors import MotorController
+from drone.src.mpu import MPU6050
+from drone.src.state import State
 
 
 class Drone:
