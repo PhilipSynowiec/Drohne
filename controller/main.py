@@ -24,11 +24,6 @@ while True:
     pitch, roll = int(30 * pitch), int(30 * roll)
     throttle, yaw = joy2.read_value()
     throttle, yaw = int(throttle), int(30 * yaw)
-
-    if ticks_diff(now, last_print) >= 500:
-        print(f"pitch={pitch:.2f}, roll={roll:.2f}")
-        print(f"throttle={throttle:.2f}, yaw={yaw:.2f}\n")
-        last_print = now
-
+    
     transmitter.send_state(throttle, roll, pitch, yaw, armed=1, mode=0)
     sleep(0.02)
