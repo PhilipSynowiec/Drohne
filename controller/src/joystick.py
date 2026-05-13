@@ -50,7 +50,7 @@ class Joystick:
             self.ads.read(channel1=self.vry_channel),
         )
 
-    def calibrate_full(self, duration=10, delay=0.01):
+    def calibrate_full(self, duration=5, delay=0.01):
         print("Stick loslassen...")
         time.sleep(1)
 

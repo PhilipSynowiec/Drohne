@@ -1,7 +1,7 @@
 from machine import PWM, Pin
 
-from drone.src.defs import PIN_BL, PIN_BR, PIN_FL, PIN_FR
-from drone.src.pid import PID
+from src.defs import PIN_BL, PIN_BR, PIN_FL, PIN_FR
+from src.pid import PID
 
 
 class Motor:

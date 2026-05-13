@@ -1,6 +1,7 @@
 from time import sleep, ticks_diff, ticks_ms
 
 from machine import I2C, Pin
+
 from src.ads1x15 import ADS1115
 from src.joystick import Joystick
 from src.nrf_transmitter import NRFTransmitter
@@ -13,16 +14,18 @@ joy2 = Joystick(ads, 2, 3)
 
 transmitter = NRFTransmitter()
 
-joy1.calibrate_full()
-joy2.calibrate_full()
+# joy1.calibrate_full()
+# joy2.calibrate_full()
 
 last_print = ticks_ms()
 while True:
     now = ticks_ms()
     pitch, roll = joy1.read_value()
+    pitch, roll = int(30 * pitch), int(30 * roll)
     throttle, yaw = joy2.read_value()
+    throttle, yaw = int(throttle), int(30 * yaw)
 
-    if ticks_diff(now, last_print) >= 100:
+    if ticks_diff(now, last_print) >= 500:
         print(f"pitch={pitch:.2f}, roll={roll:.2f}")
         print(f"throttle={throttle:.2f}, yaw={yaw:.2f}\n")
         last_print = now

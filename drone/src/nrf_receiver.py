@@ -2,7 +2,7 @@ import struct
 
 from machine import SPI, Pin
 
-from drone.src.nrf24l01 import NRF24L01
+from src.nrf24l01 import NRF24L01
 
 FMT_BODY = "<BhhhhBB"
 BODY_SIZE = struct.calcsize(FMT_BODY)
@@ -27,7 +27,7 @@ class NRFReceiver:
         self.nrf = NRF24L01(
             self.spi, self.csn, self.ce, channel=100, payload_size=PACKET_SIZE
         )
-        self.nrf.set_power_speed(0x00, 0x20)  # low power, 250 kbps
+        self.nrf.set_power_speed(0x06, 0x20)  # low power, 250 kbps
         self.nrf.open_rx_pipe(1, self.address)
         self.nrf.start_listening()
         print("Receiver ready")

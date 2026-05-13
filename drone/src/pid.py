@@ -1,6 +1,3 @@
-import matplotlib.pylot as plt
-
-
 def constrain(value, min_value, max_value):
     if value < min_value:
         return min_value
@@ -91,23 +88,23 @@ class PID:
 
         return output
 
-    def plot_logs(self):
-        if not self.debug:
-            raise RuntimeError("Debug logging is disabled")
+    # def plot_logs(self):
+    #     if not self.debug:
+    #         raise RuntimeError("Debug logging is disabled")
 
-        _, axs = plt.subplots(2, 1, figsize=(20, 16), sharex=True)
+    #     _, axs = plt.subplots(2, 1, figsize=(20, 16), sharex=True)
 
-        axs[0].plot(self._log_time, self._log_error, label="Error")
-        axs[0].plot(self._log_time, self._log_output, label="Output")
-        axs[0].legend()
-        axs[0].set_xlabel("Time")
+    #     axs[0].plot(self._log_time, self._log_error, label="Error")
+    #     axs[0].plot(self._log_time, self._log_output, label="Output")
+    #     axs[0].legend()
+    #     axs[0].set_xlabel("Time")
 
-        axs[1].plot(self._log_time, self._log_p, label="P")
-        axs[1].plot(self._log_time, self._log_i, label="I")
-        axs[1].plot(self._log_time, self._log_d, label="D")
-        axs[1].legend()
-        axs[1].set_ylabel("Terms")
-        axs[1].set_xlabel("Time")
+    #     axs[1].plot(self._log_time, self._log_p, label="P")
+    #     axs[1].plot(self._log_time, self._log_i, label="I")
+    #     axs[1].plot(self._log_time, self._log_d, label="D")
+    #     axs[1].legend()
+    #     axs[1].set_ylabel("Terms")
+    #     axs[1].set_xlabel("Time")
 
-        plt.tight_layout()
-        plt.show()
+    #     plt.tight_layout()
+    #     plt.show()
