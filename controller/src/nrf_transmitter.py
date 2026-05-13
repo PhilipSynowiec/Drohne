@@ -13,7 +13,7 @@ class NRFTransmitter:
         self.led = Pin("LED", Pin.OUT)
         self.spi = SPI(
             1,
-            baudrate=1_000_000,
+            baudrate=2_000_000,
             polarity=0,
             phase=0,
             sck=Pin(14),
@@ -26,7 +26,7 @@ class NRFTransmitter:
         self.nrf = NRF24L01(
             self.spi, self.csn, self.ce, channel=100, payload_size=PACKET_SIZE
         )
-        self.nrf.set_power_speed(0x06, 0x20)  # low power, 250 kbps
+        self.nrf.set_power_speed(0x06, 0x20)  # high power, 250 kbps
         self.nrf.open_tx_pipe(self.address)
         self.nrf.stop_listening()
         self.seq = 0
@@ -51,4 +51,4 @@ class NRFTransmitter:
             self.nrf.send(packet)
             print("sent:", (self.seq, throttle, roll, pitch, yaw, armed, mode))
         except OSError as e:
-            print("send failed:", e)
+            pass #print("send failed:", e)

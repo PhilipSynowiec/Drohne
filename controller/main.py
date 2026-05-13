@@ -31,4 +31,4 @@ while True:
         last_print = now
 
     transmitter.send_state(throttle, roll, pitch, yaw, armed=1, mode=0)
-    sleep(0.01)
+    sleep(0.02)

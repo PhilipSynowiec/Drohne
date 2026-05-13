@@ -14,7 +14,7 @@ class NRFReceiver:
         self.led = Pin("LED", Pin.OUT)
         self.spi = SPI(
             0,
-            baudrate=1_000_000,
+            baudrate=2_000_000,
             polarity=0,
             phase=0,
             sck=Pin(2),
@@ -27,7 +27,7 @@ class NRFReceiver:
         self.nrf = NRF24L01(
             self.spi, self.csn, self.ce, channel=100, payload_size=PACKET_SIZE
         )
-        self.nrf.set_power_speed(0x06, 0x20)  # low power, 250 kbps
+        self.nrf.set_power_speed(0x06, 0x20)  # high power, 250 kbps
         self.nrf.open_rx_pipe(1, self.address)
         self.nrf.start_listening()
         print("Receiver ready")
