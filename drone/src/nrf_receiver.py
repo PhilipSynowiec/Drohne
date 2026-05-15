@@ -25,7 +25,7 @@ class NRFReceiver:
         self.ce = Pin(6, Pin.OUT, value=0)
         self.address = b"node1"
         self.nrf = NRF24L01(
-            self.spi, self.csn, self.ce, channel=100, payload_size=PACKET_SIZE
+            self.spi, self.csn, self.ce, channel=76, payload_size=PACKET_SIZE
         )
         self.nrf.set_power_speed(0x06, 0x20)  # high power, 250 kbps
         self.nrf.open_rx_pipe(1, self.address)

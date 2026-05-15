@@ -51,4 +51,4 @@ class NRFTransmitter:
             self.nrf.send(packet)
             print("sent:", (self.seq, throttle, roll, pitch, yaw, armed, mode))
         except OSError as e:
-            pass #print("send failed:", e)
+            print("send failed:", e)
